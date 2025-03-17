@@ -26,6 +26,14 @@ public class Portefeuille {
 
     Map<Action, LignePortefeuille> mapLignes;
 
+    private String titre_portefeuille;
+
+    private Client proprietaire;
+
+    /* 
+     * Classe interne LignePortefeuille (utile seulement dans le cas de cette classe)
+    */
+
     private class LignePortefeuille {
 
         private Action action;
@@ -54,8 +62,29 @@ public class Portefeuille {
         }
     }
 
-    public Portefeuille() {
+    /*
+     * Constructeur et méthodes de la classe principal Portfeuille
+     */
+
+    public Portefeuille(String titre) {
         this.mapLignes = new HashMap();
+        this.titre_portefeuille = titre; 
+    } 
+
+    public String getProprietaire(){
+        return this.proprietaire;
+    }
+
+    public void setProprietaire(Client proprio){
+        this.proprietaire = proprio;
+    }
+
+    public String getTitre(){
+        return this.titre_portefeuille;
+    }
+
+    public void setTitre(String newTitle){
+        this.titre_portefeuille = newTitle;
     }
 
     public void acheter(Action a, int q) {
