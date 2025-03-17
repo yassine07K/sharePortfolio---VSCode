@@ -26,7 +26,7 @@ public class Portefeuille {
 
     Map<Action, LignePortefeuille> mapLignes;
 
-    private String titre_portefeuille;
+    private String titrePortefeuille;
 
     private Client proprietaire;
 
@@ -68,11 +68,15 @@ public class Portefeuille {
 
     public Portefeuille(String titre) {
         this.mapLignes = new HashMap();
-        this.titre_portefeuille = titre; 
+        if (titre == null || titre.trim().isEmpty()){
+            throw new IllegalArgumentException("Le titre ne peut être null");
+        }else{
+            this.titrePortefeuille = titre;
+        } 
     } 
 
     public String getProprietaire(){
-        return this.proprietaire;
+        return this.proprietaire.toString();
     }
 
     public void setProprietaire(Client proprio){
@@ -80,11 +84,11 @@ public class Portefeuille {
     }
 
     public String getTitre(){
-        return this.titre_portefeuille;
+        return this.titrePortefeuille;
     }
 
     public void setTitre(String newTitle){
-        this.titre_portefeuille = newTitle;
+        this.titrePortefeuille = newTitle;
     }
 
     public void acheter(Action a, int q) {
