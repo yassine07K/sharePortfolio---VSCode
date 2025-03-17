@@ -50,6 +50,15 @@ public class Client {
     }
 
 
+    public void acheter(Action a,int q){
+        this.portefeuilles.get(0).acheter(a,q);
+    }
+
+    public boolean existeAction(Action a){
+        return this.portefeuilles.indexOf(a) != -1;
+    }
+    
+
     @Override
     public String toString() {
         return "Client{" + "nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", ville=" + ville + ", codePostal=" + codePostal + ", telephone=" + telephone + ", email=" + email + ", dateNaissance=" + dateNaissance + ", Password=" + password + '}';
