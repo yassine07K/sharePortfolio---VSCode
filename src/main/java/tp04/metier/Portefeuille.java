@@ -32,6 +32,7 @@ public class Portefeuille {
     }
 
     public boolean acheter(Action a, int q) {
+         //ajouter un situation que rejette l`achete de qte <= 0
         if (q <= 0) {
             throw new IllegalArgumentException("le qte doit plus de 0!");
         }
