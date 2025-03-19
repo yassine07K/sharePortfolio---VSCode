@@ -49,15 +49,14 @@ public class Client {
        return this.connected;
     }
 
+    public void AcheterPortefueille(Portefeuille portefeuille){
+        portefeuilles.add(portefeuille);
+    }
 
     @Override
     public String toString() {
         return "Client{" + "nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", ville=" + ville + ", codePostal=" + codePostal + ", telephone=" + telephone + ", email=" + email + ", dateNaissance=" + dateNaissance + ", Password=" + password + '}';
     }
-
-
-
-
 
 
 }
