@@ -16,6 +16,7 @@
 package tp04.metier;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -33,6 +34,17 @@ public class ActionComposee extends Action {
 
     public void enrgComposition(ActionSimple as, float pourcentage) {
         this.mapPanier.put(as, pourcentage);
+    }
+    
+
+    //obtenir tout les % des actions
+    public float getFloatAction(){
+        Iterator<Float> it = mapPanier.values().iterator();
+        float res = 0;
+        while(it.hasNext()){
+            res += it.next();
+        }
+        return res;
     }
 
     @Override

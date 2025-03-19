@@ -34,15 +34,17 @@ public class Portefeuille {
     public boolean acheter(Action a, int q) {
          //ajouter un situation que rejette l`achete de qte <= 0
         if (q <= 0) {
-            throw new IllegalArgumentException("le qte doit plus de 0!");
+            return false;
+        }else{ 
+            if (!this.mapLignes.containsKey(a)) {
+                this.mapLignes.put(a, q);
+                return true;
+            } else {
+                this.mapLignes.put(a,this.mapLignes.get(a) + q);
+                return true;
+            }
         }
-        if (!this.mapLignes.containsKey(a)) {
-            this.mapLignes.put(a, q);
-            return true;
-        } else {
-        this.mapLignes.put(a,this.mapLignes.get(a) + q);
-        return false;
-      }
+       
     }
 
    public void vendre(Action a, int q) {

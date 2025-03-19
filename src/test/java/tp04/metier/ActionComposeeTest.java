@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package tp04.metier;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -23,11 +23,32 @@ import org.junit.jupiter.api.Test;
  */
 public class ActionComposeeTest {
 
-    public ActionComposeeTest() {
-    }
+ 
 
+    //Test pour vérifier si la somme des proportions des actions composées est égale à 100 %.
     @Test
     public void testSomeMethod() {
-    }
+        ActionComposee actionComposee = new ActionComposee("TestActionCompose");
+        ActionSimple a1 = new ActionSimple("test1");
+        ActionSimple a2 = new ActionSimple("test2");
 
+        actionComposee.enrgComposition(a1,0.5f);
+        actionComposee.enrgComposition(a2,0.5f);
+
+        float totalPercentage = actionComposee.getFloatAction();
+        //Assertions.  
+        Assertions.assertEquals(1.0f,totalPercentage,"false!!!!!!!!!!!!!!");
+
+    }
+    
+     public class ActionExe extends Action {
+     public ActionExe(String nomA) {
+         super(nomA);
+     }
+     public float valeur(Jour j) {
+         return 0.0F;
+     }
+  
+    }
+    
 }
