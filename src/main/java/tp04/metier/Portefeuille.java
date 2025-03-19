@@ -32,6 +32,9 @@ public class Portefeuille {
     }
 
     public boolean acheter(Action a, int q) {
+        if (q <= 0) {
+            throw new IllegalArgumentException("le qte doit plus de 0!");
+        }
         if (!this.mapLignes.containsKey(a)) {
             this.mapLignes.put(a, q);
             return true;
