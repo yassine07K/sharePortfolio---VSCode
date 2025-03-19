@@ -67,7 +67,6 @@ public class Client {
     public int getLocalisationPortefeuilleParNom(String nomP){
         
         for(Portefeuille exp : this.portefeuilles){
-            System.out.println(exp.getNomPortefeuille());
             if(exp.getNomPortefeuille().equals(nomP)){
                 return this.portefeuilles.indexOf(exp);
             }
@@ -80,8 +79,9 @@ public class Client {
     }
 
     public boolean removePortefeuille(String nomPortefeuille){
-        if(getLocalisationPortefeuilleParNom(nomPortefeuille)!=-1){
-            this.portefeuilles.remove(nomPortefeuille);
+        int index = getLocalisationPortefeuilleParNom(nomPortefeuille);
+        if(index!=-1){
+            this.portefeuilles.remove(index);
             return true;
         }return false;
     }
@@ -90,7 +90,6 @@ public class Client {
 
     public boolean acheter(String nomPortefeuille,Action a,int q){
         int index = getLocalisationPortefeuilleParNom(nomPortefeuille);
-        System.out.println(index);
         if(index != -1 && q > 0){
             this.portefeuilles.get(index).acheter(a,q);
             return true;
@@ -101,8 +100,13 @@ public class Client {
     }
         
 
-    public boolean existeAction(Action a){
-        return this.portefeuilles.indexOf(a) != -1;
+    public boolean existeAction(String nomP,Action a){
+        int index = getLocalisationPortefeuilleParNom(nomP);
+        if(index == -1){
+            return false;
+        }else{
+            return this.portefeuilles.get(index).getMapLignes().containsKey(a);
+        }
     }
     
 
