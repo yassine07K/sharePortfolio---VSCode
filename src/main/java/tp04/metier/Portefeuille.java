@@ -16,6 +16,7 @@
 package tp04.metier;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -24,66 +25,66 @@ import java.util.Map;
  */
 public class Portefeuille {
 
-    Map<Action, LignePortefeuille> mapLignes;
+    private int idPortefeuille;
+    private String nomPortefeuille;
+    Map<Action, Integer> mapLignes;
+    static int indexP = 1;
 
-    private class LignePortefeuille {
-
-        private Action action;
-
-        private int qte;
-
-        public int getQte() {
-            return qte;
-        }
-
-        public void setQte(int qte) {
-            this.qte = qte;
-        }
-
-        public Action getAction() {
-            return this.action;
-        }
-
-        public LignePortefeuille(Action action, int qte) {
-            this.action = action;
-            this.qte = qte;
-        }
-
-        public String toString() {
-            return Integer.toString(qte);
-        }
+    public Portefeuille(String nomP) {
+        this.idPortefeuille = indexP++;
+        this.nomPortefeuille = nomP;
+        this.mapLignes = new HashMap<>();
     }
 
-    public Portefeuille() {
-        this.mapLignes = new HashMap();
+    public int getIdPortefeuille() {
+        return idPortefeuille;
+    }
+
+    public String getNomPortefeuille() {
+        return nomPortefeuille;
+    }
+
+    public Map<Action, Integer> getMapLignes() {
+        return mapLignes;
+    }
+
+    public void setnomPortefeuille(String nomPortefeuille) {
+        this.nomPortefeuille = nomPortefeuille;
+    }
+
+    public void setMapLignes(Map<Action, Integer> mapLignes) {
+        this.mapLignes = mapLignes;
     }
 
     public void acheter(Action a, int q) {
-        if (this.mapLignes.containsKey(a) == false) {
-            this.mapLignes.put(a, new LignePortefeuille(a, q));
+        if (!this.mapLignes.containsKey(a)) {
+            this.mapLignes.put(a, q);
         } else {
-            this.mapLignes.get(a).setQte(this.mapLignes.get(a).getQte() + q);
+            this.mapLignes.put(a,this.mapLignes.get(a) + q);
         }
+       
     }
 
     public void vendre(Action a, int q) {
-        if (this.mapLignes.containsKey(a) == true) {
-            if (this.mapLignes.get(a).getQte() > q) {
-                this.mapLignes.get(a).setQte(this.mapLignes.get(a).getQte() - q);
-            } else if (this.mapLignes.get(a).getQte() == q) {
+        if (this.mapLignes.containsKey(a)) {
+            if (this.mapLignes.get(a) > q) {
+                this.mapLignes.put(a,this.mapLignes.get(a) - q);
+            } else if (this.mapLignes.get(a)== q) {
                 this.mapLignes.remove(a);
             }
         }
     }
 
     public String toString() {
-        return this.mapLignes.toString();
+        return this.nomPortefeuille+this.mapLignes.toString();
     }
 
     public float valeur(Jour j) {
         float total = 0;
-        for (LignePortefeuille lp : this.mapLignes.values()) {
-            total = total + (lp.getQte() * lp.getAction().valeur(j));
+        Iterator i = this.mapLignes.entrySet().iterator();
+        while (i.hasNext()) {
+            Map.Entry<Action, Integer> entry = (Map.Entry<Action, Integer>) i.next();
+            total = total + (entry.getValue() * entry.getKey().valeur(j));
         }
         return total;
     }
