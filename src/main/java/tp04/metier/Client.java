@@ -55,11 +55,14 @@ public class Client {
         return "Client{" + "nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", ville=" + ville + ", codePostal=" + codePostal + ", telephone=" + telephone + ", email=" + email + ", dateNaissance=" + dateNaissance + ", Password=" + password + '}';
     }
 
+<<<<<<< HEAD
     //Ajoute un portefeuille à ce client
     public void AcheterPortefueille(Portefeuille portefeuille){
         portefeuilles.add(portefeuille);
     }
 
+=======
+>>>>>>> f8bcc77d711596161f6a0d805077eaa29395a531
 
 
 
