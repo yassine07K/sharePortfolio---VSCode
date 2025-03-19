@@ -74,6 +74,11 @@ public class Portefeuille {
             this.titrePortefeuille = titre;
         } 
     } 
+    public Portefeuille() {
+        this("Portefeuille Sans Nom"); // Définit un titre par défaut
+    }
+    
+    
 
     public String getProprietaire(){
         return this.proprietaire.toString();
