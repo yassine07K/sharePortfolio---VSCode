@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 package tp04.metier;
+import java.beans.Transient;
+import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -31,9 +34,12 @@ public class ActionComposeeTest {
         ActionComposee actionComposee = new ActionComposee("TestActionCompose");
         ActionSimple a1 = new ActionSimple("test1");
         ActionSimple a2 = new ActionSimple("test2");
+        Map<K,V> actioncompose = new HashMap();
 
-        actionComposee.enrgComposition(a1,0.5f);
-        actionComposee.enrgComposition(a2,0.5f);
+        
+        actioncompose.put(a1,0.5f);        
+        actioncompose.put(a2,0.5f);
+
 
         float totalPercentage = actionComposee.getFloatAction();
         //Assertions.  
@@ -50,5 +56,9 @@ public class ActionComposeeTest {
      }
   
     }
+
+    @Test
+
+
     
 }

@@ -13,7 +13,7 @@ public class PortfeuilleTest {
         Portefeuille p = new Portefeuille();
         Action action = new ActionSimple("TestA");
         
-        //le situation = 0
+        //le situation = 10
         p.acheter(action, 10);
         assertEquals(10,p.mapLignes.get(action), "le qte doit plus de 0!");
         
