@@ -49,19 +49,51 @@ public class Client {
        return this.connected;
     }
 
-
-    public void acheter(Action a,int q){
-        this.portefeuilles.get(0).acheter(a,q);
+    public int getLocalisationPortefeuilleParNom(String nomP){
+        
+        for(Portefeuille exp : this.portefeuilles){
+            System.out.println(exp.getNomPortefeuille());
+            if(exp.getNomPortefeuille().equals(nomP)){
+                return this.portefeuilles.indexOf(exp);
+            }
+        }return -1;
     }
+
+    public boolean creerPortefeuille(String nomPortefeuille){
+        Portefeuille p = new Portefeuille(nomPortefeuille);
+        return this.portefeuilles.add(p);
+    }
+
+    public boolean removePortefeuille(String nomPortefeuille){
+        if(getLocalisationPortefeuilleParNom(nomPortefeuille)!=-1){
+            this.portefeuilles.remove(nomPortefeuille);
+            return true;
+        }return false;
+    }
+
+ 
+
+    public boolean acheter(String nomPortefeuille,Action a,int q){
+        int index = getLocalisationPortefeuilleParNom(nomPortefeuille);
+        System.out.println(index);
+        if(index != -1 && q > 0){
+            this.portefeuilles.get(index).acheter(a,q);
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+        
 
     public boolean existeAction(Action a){
         return this.portefeuilles.indexOf(a) != -1;
     }
     
 
-    @Override
-    public String toString() {
-        return "Client{" + "nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", ville=" + ville + ", codePostal=" + codePostal + ", telephone=" + telephone + ", email=" + email + ", dateNaissance=" + dateNaissance + ", Password=" + password + '}';
+
+    public String toString(){
+        return "Client : "+this.nom+" "+this.prenom+" "+this.portefeuilles;
     }
 
 

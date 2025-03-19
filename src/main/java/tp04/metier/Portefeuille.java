@@ -25,20 +25,44 @@ import java.util.Map;
  */
 public class Portefeuille {
 
+    private int idPortefeuille;
+    private String nomPortefeuille;
     Map<Action, Integer> mapLignes;
+    static int indexP = 1;
 
-    public Portefeuille() {
+    public Portefeuille(String nomP) {
+        this.idPortefeuille = indexP++;
+        this.nomPortefeuille = nomP;
         this.mapLignes = new HashMap<>();
     }
 
-    public boolean acheter(Action a, int q) {
+    public int getIdPortefeuille() {
+        return idPortefeuille;
+    }
+
+    public String getNomPortefeuille() {
+        return nomPortefeuille;
+    }
+
+    public Map<Action, Integer> getMapLignes() {
+        return mapLignes;
+    }
+
+    public void setnomPortefeuille(String nomPortefeuille) {
+        this.nomPortefeuille = nomPortefeuille;
+    }
+
+    public void setMapLignes(Map<Action, Integer> mapLignes) {
+        this.mapLignes = mapLignes;
+    }
+
+    public void acheter(Action a, int q) {
         if (!this.mapLignes.containsKey(a)) {
             this.mapLignes.put(a, q);
-            return true;
         } else {
             this.mapLignes.put(a,this.mapLignes.get(a) + q);
-            return false;
         }
+       
     }
 
     public void vendre(Action a, int q) {
@@ -52,7 +76,7 @@ public class Portefeuille {
     }
 
     public String toString() {
-        return this.mapLignes.toString();
+        return this.nomPortefeuille+this.mapLignes.toString();
     }
 
     public float valeur(Jour j) {
