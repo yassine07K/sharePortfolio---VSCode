@@ -16,6 +16,7 @@
 package tp04.metier;
 import java.beans.Transient;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -34,12 +35,17 @@ public class ActionComposeeTest {
         ActionComposee actionComposee = new ActionComposee("TestActionCompose");
         ActionSimple a1 = new ActionSimple("test1");
         ActionSimple a2 = new ActionSimple("test2");
-        Map<K,V> actioncompose = new HashMap();
+        Map<ActionSimple,Float> actioncompose = new HashMap<>();
 
         
         actioncompose.put(a1,0.5f);        
         actioncompose.put(a2,0.5f);
 
+        try {
+            actionComposee.ajouterComposition(actioncompose);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         float totalPercentage = actionComposee.getFloatAction();
         //Assertions.  
@@ -56,9 +62,5 @@ public class ActionComposeeTest {
      }
   
     }
-
-    @Test
-
-
     
 }
