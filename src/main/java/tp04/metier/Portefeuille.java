@@ -32,6 +32,10 @@ public class Portefeuille {
     }
 
     public boolean acheter(Action a, int q) {
+        //si l`action est null, on lance une exception	
+        if (a == null) {
+            throw new IllegalArgumentException("Action ne peut pas être null.");
+        }
          //ajouter un situation que rejette l`achete de qte <= 0
         if (q <= 0) {
             return false;

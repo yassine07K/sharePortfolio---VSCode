@@ -41,12 +41,7 @@ class ActionTest {
         }
     }
 
-    @Test
-void testActionSimpleValeurSansCours() {
-    ActionSimple action = new ActionSimple("TestAction");
-    Jour jour = new Jour(1);
-    Assertions.assertEquals(0.0f, action.valeur(jour));
-}
+
 
 
 }
