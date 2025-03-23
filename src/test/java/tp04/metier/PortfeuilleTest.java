@@ -88,9 +88,106 @@ void testAcheterNullAction() {
     });
 }
 
+@Test
+void testAcheterQuantitePositive() {
+    Portefeuille p = new Portefeuille();
+    ActionSimple a = new ActionSimple("Action1");
 
+    p.acheter(a, 10);
 
+    Assertions.assertEquals(10, p.mapLignes.get(a));
+}
 
+@Test
+void testAcheterQuantiteCumulative() {
+    Portefeuille p = new Portefeuille();
+    ActionSimple a = new ActionSimple("Action2");
+
+    p.acheter(a, 5);
+    p.acheter(a, 7);
+
+    Assertions.assertEquals(12, p.mapLignes.get(a));
+}
+
+@Test
+void testAcheterQuantiteZeroOuNegative() {
+    Portefeuille p = new Portefeuille();
+    ActionSimple a = new ActionSimple("Action3");
+
+    p.acheter(a, 0);
+    Assertions.assertNull(p.mapLignes.get(a));
+
+    p.acheter(a, -5);
+    Assertions.assertNull(p.mapLignes.get(a));
+}
+
+@Test
+void testVendrePartiellement() {
+    Portefeuille p = new Portefeuille();
+    ActionSimple a = new ActionSimple("Action4");
+
+    p.acheter(a, 10);
+    p.vendre(a, 4);
+
+    Assertions.assertEquals(6, p.mapLignes.get(a));
+}
+
+@Test
+void testVendreToutRetireDeMap() {
+    Portefeuille p = new Portefeuille();
+    ActionSimple a = new ActionSimple("Action5");
+
+    p.acheter(a, 5);
+    p.vendre(a, 5);
+
+    Assertions.assertFalse(p.mapLignes.containsKey(a));
+     
+
+}
+
+@Test
+void testVendrePlusQuePossede() {
+    Portefeuille p = new Portefeuille();
+    ActionSimple a = new ActionSimple("Action6");
+
+    p.acheter(a, 5);
+    p.vendre(a, 10); 
+
+    Assertions.assertFalse(p.mapLignes.containsKey(a)); 
+}
+
+@Test
+void testVendreSansPossession() {
+    Portefeuille p = new Portefeuille();
+    ActionSimple a = new ActionSimple("Action7");
+
+    p.vendre(a, 5); // pas d'exception
+
+    Assertions.assertNull(p.mapLignes.get(a));
+}
+
+@Test
+void testVendreNullAction() {
+    Portefeuille p = new Portefeuille();
+
+    Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        p.vendre(null, 5);
+    });
+}
+
+@Test
+void testMultiActionScenario() {
+    Portefeuille p = new Portefeuille();
+    ActionSimple a1 = new ActionSimple("A1");
+    ActionSimple a2 = new ActionSimple("A2");
+
+    p.acheter(a1, 10);
+    p.acheter(a2, 20);
+    p.vendre(a1, 5);
+
+    Assertions.assertEquals(5, p.mapLignes.get(a1));
+    Assertions.assertEquals(20, p.mapLignes.get(a2));
+}
 
     @Test
     void testVenteEtQuantite() {

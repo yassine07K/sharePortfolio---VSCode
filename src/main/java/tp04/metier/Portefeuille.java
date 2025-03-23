@@ -52,13 +52,19 @@ public class Portefeuille {
     }
 
    public void vendre(Action a, int q) {
-         if (this.mapLignes.containsKey(a)) {
-             if (this.mapLignes.get(a) > q) {
-                this.mapLignes.put(a,this.mapLignes.get(a) - q);
-             } else if (this.mapLignes.get(a)== q) {
-                  this.mapLignes.remove(a);
-             }
+    if (a == null) {
+        throw new IllegalArgumentException("Action ne peut pas être null.");
+    }
+    
+    Integer actuelle = this.mapLignes.get(a);
+    if (actuelle != null) {
+        if (actuelle > q) {
+            this.mapLignes.put(a, actuelle - q);
+        } else {
+            
+            this.mapLignes.remove(a);
         }
+    }
     }
 
     public String toString() {
