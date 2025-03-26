@@ -62,9 +62,6 @@ public class ClientTest {
 
     @Test
     public void testAcheter1() {
-
-        
-
         assertEquals(true,client.creerPortefeuille("monPorte"), "une erreur est survenue lors de la création du portefeuille");
         assertEquals(true, client.acheter("monPorte",action, 10), "L'action achetée doit être la même que celle passée en paramètre");
 
@@ -81,6 +78,22 @@ public class ClientTest {
         assertEquals("prenom", client.getPrenom());
         assertFalse(client.isConnected());
     }
+
+    @Test
+    public void testGetPortefeuille() {
+        assertEquals(1, client.getPortefeuilles().size());
+        client.creerPortefeuille("Portefeuille1");
+        assertEquals(2, client.getPortefeuilles().size());
+        assertEquals("Portefeuille1", client.getPortefeuille(1).getNomPortefeuille(),"Erreur dans la méthode getPortefeuille");
+    } 
+
+    @Test
+    public void testGetPortefeuilles(){
+        assertEquals(1, client.getPortefeuilles().size());
+        client.creerPortefeuille("Portefeuille1");
+        assertEquals(2, client.getPortefeuilles().size());
+    }
+
 
     @Test
     public void testConnexion() {
