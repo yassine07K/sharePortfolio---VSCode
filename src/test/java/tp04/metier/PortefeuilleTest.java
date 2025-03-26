@@ -15,37 +15,83 @@
  */
 
 package tp04.metier;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tp04.metier.Action;
-import tp04.metier.Jour;
-import tp04.metier.Portefeuille;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class PortefeuilleTest {
 
-    private Portefeuille portefeuille;
-    private ActionSimple action1;
-    private ActionSimple action2;
-    private Jour jour;
+private Client client;
+private List<Portefeuille> listePortefeuilles;
+private Portefeuille portefeuille;
+private ActionSimple action1;
+private ActionSimple action2;
+private Jour jour;
 
-    @BeforeEach
-    public void setUp() {
-        portefeuille = new Portefeuille("Portefeuille1");
-        action1 = new ActionSimple("Action1");
-        action2 = new ActionSimple("Action2");
-        jour = new Jour(1,1); 
-    }
+@BeforeEach
+  public void setUp() {
+      portefeuille = new Portefeuille("Portefeuille1");
+      action1 = new ActionSimple("Action1");
+      action2 = new ActionSimple("Action2");
+      jour = new Jour(1,1); 
+    
+      /* Création du client */
+      client = new Client("NomClient", "PrenomClient");
+      List<Portefeuille> listePortefeuillesTest = client.getListePortefeuilles();
+  }
+
+@Test 
+void TestCreationPortefeuilleValide() {
+
+
+    Portefeuille portefeuille = new Portefeuille("Mon Portefeuille");
+    portefeuille.setProprietaire(client);
+    
+    assertNotNull(portefeuille, "Le portefeuille ne doit pas etre null");
+    assertEquals("Mon Portefeuille", portefeuille.getTitre(), "Le titre du portefeuille doit être correct");
+    assertEquals(client, portefeuille.getProprietaire());
+}
+@Test 
+void testCreationPortefeuilleInvalide() {
+
+Exception exception1 = assertThrows(IllegalArgumentException.class, () -> {
+    new Portefeuille(null);
+});
+assertEquals("Le titre ne peut être null", exception1.getMessage());
+
+Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+    new Portefeuille(" ");
+});
+assertEquals("Le titre ne peut être vide", exception2.getMessage());
+
+}
+@Test
+void testCreationPortefeuilleAvecNomExistant_ShouldNotPass(){
+
+    /* Création du portefeuille */
+    Portefeuille portefeuilleA = new Portefeuille("Mon Portefeuille");
+    /* Assignement d'un propriétaire */
+    portefeuilleA.setProprietaire(client);
+    /* Association du portefeuille à la listePortefeuille du client */
+    client.addPortefeuille(portefeuilleA);
+    Portefeuille portefeuilleB = new Portefeuille("Mon Portefeuille");
+    client.addPortefeuille(portefeuilleB);
+
+    Exception exception1 = assertThrows(IllegalArgumentException.class, () -> {
+    portefeuilleB.setProprietaire(client);
+    });
+    assertEquals("Ce titre existe parmi vos portefeuilles", exception1.getMessage());
+  }
 
     @Test
     public void testConstructeur() {
-        assertEquals("Portefeuille1", portefeuille.getNomPortefeuille(),"Le nom du portefeuille doit être Portefeuille1");
+        assertEquals("Portefeuille1", portefeuille.getTitre(),"Le nom du portefeuille doit être Portefeuille1");
         assertTrue(portefeuille.getMapLignes().isEmpty());
     }
 
@@ -77,6 +123,5 @@ public class PortefeuilleTest {
         String expected = "Portefeuille1{Action1=10}";
         assertEquals(expected, portefeuille.toString(),"Erreur dans la méthode toString");
     }
-
-
 }
+

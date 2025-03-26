@@ -26,39 +26,97 @@ import java.util.Map;
 public class Portefeuille {
 
     private int idPortefeuille;
-    private String nomPortefeuille;
     Map<Action, Integer> mapLignes;
     static int indexP = 1;
+    private String titrePortefeuille;
+    private Client proprietaire;
 
-    public Portefeuille(String nomP) {
-        this.idPortefeuille = indexP++;
-        this.nomPortefeuille = nomP;
-        this.mapLignes = new HashMap<>();
+    /* 
+     * Classe interne LignePortefeuille (utile seulement dans le cas de cette classe)
+    */
+
+    private class LignePortefeuille {
+
+        private Action action;
+        private int qte;
+       
+        public int getQte() {
+            return qte;
+        }
+
+        public void setQte(int qte) {
+            this.qte = qte;
+        }
+
+        public Action getAction() {
+            return this.action;
+        }
+
+        public LignePortefeuille(Action action, int qte) {
+            this.action = action;
+            this.qte = qte;
+        }
+
+        public String toString() {
+            return Integer.toString(qte);
+        }
     }
+
+
+    /*
+     * Constructeur et méthodes de la classe principal Portfeuille
+     */
 
     public Portefeuille() {
         this.idPortefeuille = indexP++;
         this.mapLignes = new HashMap<>();
     }
-
-    public int getIdPortefeuille() {
-        return idPortefeuille;
-    }
-
-    public String getNomPortefeuille() {
-        return nomPortefeuille;
-    }
+    
+    public Portefeuille(String titre) {
+        this.idPortefeuille = indexP++;
+        this.mapLignes = new HashMap();
+        if (titre == null){
+            throw new IllegalArgumentException("Le titre ne peut être null");
+        }
+        if (titre.trim().isEmpty()){
+            throw new IllegalArgumentException("Le titre ne peut être vide");
+        }
+        this.titrePortefeuille = titre; 
+    } 
 
     public Map<Action, Integer> getMapLignes() {
         return mapLignes;
     }
 
-    public void setnomPortefeuille(String nomPortefeuille) {
-        this.nomPortefeuille = nomPortefeuille;
+    public int getIdPortefeuille() {
+        return idPortefeuille;
+    }
+    
+    public Client getProprietaire(){
+        return this.proprietaire;
+    }
+
+    public void setProprietaire(Client proprietaire){
+        for (Portefeuille portefeuille : proprietaire.getListePortefeuilles()) {
+            if (portefeuille.getTitre().equals(this.titrePortefeuille)) {
+                throw new IllegalArgumentException("Ce titre existe parmi vos portefeuilles");
+            }
+        }
+        
+        this.proprietaire = proprietaire;
+    }
+
+    public String getTitre(){
+        return this.titrePortefeuille;
+    }
+
+    public void setTitre(String newTitle){
+        this.titrePortefeuille = newTitle;
     }
 
     public void setMapLignes(Map<Action, Integer> mapLignes) {
         this.mapLignes = mapLignes;
+
     }
 
     public void acheter(Action a, int q) {
@@ -89,10 +147,8 @@ public class Portefeuille {
        
     }
 
-
-
     public String toString() {
-        return this.nomPortefeuille+this.mapLignes.toString();
+        return this.titrePortefeuille+this.mapLignes.toString();
     }
 
     public float valeur(Jour j) {

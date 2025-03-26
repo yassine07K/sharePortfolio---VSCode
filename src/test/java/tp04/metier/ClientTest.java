@@ -156,6 +156,8 @@ public class ClientTest {
         Assertions.assertEquals("Jean", client.getPrenom());//verifier le prenom
 
     }
+
+    
     //Tester si les champs du client ont des valeurs par défaut après la création.
     @Test
     void testConstructorAndGetters() {

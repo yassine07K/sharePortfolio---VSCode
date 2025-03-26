@@ -16,6 +16,7 @@
 package tp04.metier;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.sound.sampled.Port;
 
@@ -31,7 +32,7 @@ public class Client {
     private String email;
     private String dateNaissance;
     private String password;
-    private ArrayList<Portefeuille> portefeuilles;
+    private List<Portefeuille> portefeuilles;
     private boolean connected;
 
 
@@ -42,6 +43,7 @@ public class Client {
         this.connected = false;
     }
 
+    public List<Portefeuille> getListePortefeuilles(){return portefeuilles;}
     public String getNom() {return nom;}
     public String getPrenom() { return prenom;}
     public String getAdresse() {return adresse;}
@@ -51,6 +53,7 @@ public class Client {
     public String getEmail() {return email;}
     public String getDateNaissance() {return dateNaissance;}
     public String getPassword() {return this.password;}
+    public void setListePortefeuilles(List<Portefeuille> listePortefeuilles){this.portefeuilles = listePortefeuilles;}
     public void setNom(String nom) {this.nom = nom;}
     public void setPrenom(String prenom) {this.prenom = prenom;}
     public void setAdresse(String adresse) {this.adresse = adresse;}
@@ -65,17 +68,15 @@ public class Client {
     public boolean isConnected(){
        return this.connected;
     }
-    public Portefeuille getPortefeuille(int index){return this.portefeuilles.get(index);}
-    public ArrayList<Portefeuille> getPortefeuilles(){return this.portefeuilles;}
 
-    public void AcheterPortefueille(Portefeuille portefeuille){
-        portefeuilles.add(portefeuille);
+    public void addPortefeuille(Portefeuille portefeuille){
+            this.portefeuilles.add(portefeuille);
     }
 
+
     public int getLocalisationPortefeuilleParNom(String nomP){
-        
         for(Portefeuille exp : this.portefeuilles){
-            if(exp.getNomPortefeuille().equals(nomP)){
+            if(exp.getTitre().equals(nomP)){
                 return this.portefeuilles.indexOf(exp);
             }
         }return -1;
@@ -122,8 +123,6 @@ public class Client {
     public String toString(){
         return "Client : "+this.nom+" "+this.prenom+" "+this.portefeuilles;
     }
-
-
 }
 
 
