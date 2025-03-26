@@ -80,4 +80,6 @@ void testCreationPortefeuilleAvecNomExistant_ShouldNotPass(){
     });
     assertEquals("Ce titre existe parmi vos portefeuilles", exception1.getMessage());
 }
+
 }
+
