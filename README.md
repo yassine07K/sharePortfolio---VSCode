@@ -1,10 +1,10 @@
 Membre du groupe:
     LIYUAN FAN
-    XIAOYAN YIN
-    SHIHAO LYU
-    SOFIEN TALBI
-    YASSINE EL AZAMI
-    BENJAMIN BOA
+    - XIAOYAN YIN
+    - SHIHAO LYU
+    - SOFIEN TALBI
+    - YASSINE EL AZAMI
+    - BENJAMIN BOA
 
 ➡️ [Voir l’analyse complète sur SonarCloud](https://sonarcloud.io/project/branches_list?id=yassine07K_sharePortfolio---VSCode)
 
