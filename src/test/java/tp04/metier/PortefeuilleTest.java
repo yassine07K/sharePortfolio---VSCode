@@ -33,9 +33,9 @@ private List<Portefeuille> listePortefeuilles;
 @BeforeEach
 void setUp() {
 
+    /* Création du client */
     client = new Client("NomClient", "PrenomClient");
-    listePortefeuilles = new ArrayList<>();
-
+    List<Portefeuille> listePortefeuillesTest = client.getListePortefeuilles();
 }
 
 @Test 
@@ -44,10 +44,10 @@ void TestCreationPortefeuilleValide() {
 
     Portefeuille portefeuille = new Portefeuille("Mon Portefeuille");
     portefeuille.setProprietaire(client);
-
+    
     assertNotNull(portefeuille, "Le portefeuille ne doit pas etre null");
     assertEquals("Mon Portefeuille", portefeuille.getTitre(), "Le titre du portefeuille doit être correct");
-    assertEquals(client.toString(), portefeuille.getProprietaire());
+    assertEquals(client, portefeuille.getProprietaire());
 }
 @Test 
 void testCreationPortefeuilleInvalide() {
@@ -60,12 +60,24 @@ assertEquals("Le titre ne peut être null", exception1.getMessage());
 Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
     new Portefeuille(" ");
 });
-assertEquals("Le titre ne peut être null", exception2.getMessage());
+assertEquals("Le titre ne peut être vide", exception2.getMessage());
 
 }
+@Test
+void testCreationPortefeuilleAvecNomExistant_ShouldNotPass(){
 
+    /* Création du portefeuille */
+    Portefeuille portefeuilleA = new Portefeuille("Mon Portefeuille");
+    /* Assignement d'un propriétaire */
+    portefeuilleA.setProprietaire(client);
+    /* Association du portefeuille à la listePortefeuille du client */
+    client.addPortefeuille(portefeuilleA);
+    Portefeuille portefeuilleB = new Portefeuille("Mon Portefeuille");
+    client.addPortefeuille(portefeuilleB);
 
-
-
-
+    Exception exception1 = assertThrows(IllegalArgumentException.class, () -> {
+    portefeuilleB.setProprietaire(client);
+    });
+    assertEquals("Ce titre existe parmi vos portefeuilles", exception1.getMessage());
+}
 }

@@ -68,24 +68,31 @@ public class Portefeuille {
 
     public Portefeuille(String titre) {
         this.mapLignes = new HashMap();
-        if (titre == null || titre.trim().isEmpty()){
+        if (titre == null){
             throw new IllegalArgumentException("Le titre ne peut être null");
-        }else{
-            this.titrePortefeuille = titre;
-        } 
+        }
+        if (titre.trim().isEmpty()){
+            throw new IllegalArgumentException("Le titre ne peut être vide");
+        }
+        this.titrePortefeuille = titre; 
     } 
+
     public Portefeuille() {
         this("Portefeuille Sans Nom"); // Définit un titre par défaut
     }
     
-    
-
-    public String getProprietaire(){
-        return this.proprietaire.toString();
+    public Client getProprietaire(){
+        return this.proprietaire;
     }
 
-    public void setProprietaire(Client proprio){
-        this.proprietaire = proprio;
+    public void setProprietaire(Client proprietaire){
+        for (Portefeuille portefeuille : proprietaire.getListePortefeuilles()) {
+            if (portefeuille.getTitre().equals(this.titrePortefeuille)) {
+                throw new IllegalArgumentException("Ce titre existe parmi vos portefeuilles");
+            }
+        }
+        
+        this.proprietaire = proprietaire;
     }
 
     public String getTitre(){

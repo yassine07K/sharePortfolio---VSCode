@@ -1,6 +1,7 @@
 package tp04.metier;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
 
@@ -14,7 +15,7 @@ public class Client {
     private String email;
     private String dateNaissance;
     private String password;
-    private ArrayList<Portefeuille> portefeuilles;
+    private List<Portefeuille> portefeuilles;
     private boolean connected;
 
 
@@ -25,6 +26,7 @@ public class Client {
         this.connected = false;
     }
 
+    public List<Portefeuille> getListePortefeuilles(){return portefeuilles;}
     public String getNom() {return nom;}
     public String getPrenom() { return prenom;}
     public String getAdresse() {return adresse;}
@@ -34,6 +36,7 @@ public class Client {
     public String getEmail() {return email;}
     public String getDateNaissance() {return dateNaissance;}
     public String getPassword() {return this.password;}
+    public void setListePortefeuilles(List<Portefeuille> listePortefeuilles){this.portefeuilles = listePortefeuilles;}
     public void setNom(String nom) {this.nom = nom;}
     public void setPrenom(String prenom) {this.prenom = prenom;}
     public void setAdresse(String adresse) {this.adresse = adresse;}
@@ -49,17 +52,16 @@ public class Client {
        return this.connected;
     }
 
+    public void addPortefeuille(Portefeuille portefeuille){
+
+            this.portefeuilles.add(portefeuille);
+    }
+
 
     @Override
     public String toString() {
         return "Client{" + "nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", ville=" + ville + ", codePostal=" + codePostal + ", telephone=" + telephone + ", email=" + email + ", dateNaissance=" + dateNaissance + ", Password=" + password + '}';
     }
-
-
-
-
-
-
 }
 
 
