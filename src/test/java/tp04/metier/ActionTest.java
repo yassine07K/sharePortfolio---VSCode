@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test;
  */
 class ActionTest {
 
+    //Test le nom d'action
     @Test
     void testGetLibelle() {
         final Action action = new ActionImpl();

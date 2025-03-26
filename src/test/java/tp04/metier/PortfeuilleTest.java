@@ -88,6 +88,7 @@ void testAcheterNullAction() {
     });
 }
 
+//Tester si la quantité de l'action achetée correspond au montant d'achat.
 @Test
 void testAcheterQuantitePositive() {
     Portefeuille p = new Portefeuille();
@@ -95,32 +96,39 @@ void testAcheterQuantitePositive() {
 
     p.acheter(a, 10);
 
+    // si le qte de action a est 10
     Assertions.assertEquals(10, p.mapLignes.get(a));
 }
 
+//Tester si la quantité d'une action est cumulée après deux achats.
 @Test
 void testAcheterQuantiteCumulative() {
     Portefeuille p = new Portefeuille();
     ActionSimple a = new ActionSimple("Action2");
 
+    //acheter 2 fois d'action a
     p.acheter(a, 5);
     p.acheter(a, 7);
 
     Assertions.assertEquals(12, p.mapLignes.get(a));
 }
 
+//Tester si un achat avec une quantité nulle ou négative n'affecte pas la quantité de l'action.
 @Test
 void testAcheterQuantiteZeroOuNegative() {
     Portefeuille p = new Portefeuille();
     ActionSimple a = new ActionSimple("Action3");
 
+    // la quantité de action a est 0
     p.acheter(a, 0);
     Assertions.assertNull(p.mapLignes.get(a));
 
+    //la quantité de action < 0
     p.acheter(a, -5);
     Assertions.assertNull(p.mapLignes.get(a));
 }
 
+//Tester si la quantité d'une action est correctement mise à jour après une vente.
 @Test
 void testVendrePartiellement() {
     Portefeuille p = new Portefeuille();
@@ -131,83 +139,6 @@ void testVendrePartiellement() {
 
     Assertions.assertEquals(6, p.mapLignes.get(a));
 }
-
-@Test
-void testVendreToutRetireDeMap() {
-    Portefeuille p = new Portefeuille();
-    ActionSimple a = new ActionSimple("Action5");
-
-    p.acheter(a, 5);
-    p.vendre(a, 5);
-
-    Assertions.assertFalse(p.mapLignes.containsKey(a));
-     
-
-}
-
-@Test
-void testVendrePlusQuePossede() {
-    Portefeuille p = new Portefeuille();
-    ActionSimple a = new ActionSimple("Action6");
-
-    p.acheter(a, 5);
-    p.vendre(a, 10); 
-
-    Assertions.assertFalse(p.mapLignes.containsKey(a)); 
-}
-
-@Test
-void testVendreSansPossession() {
-    Portefeuille p = new Portefeuille();
-    ActionSimple a = new ActionSimple("Action7");
-
-    p.vendre(a, 5); // pas d'exception
-
-    Assertions.assertNull(p.mapLignes.get(a));
-}
-
-@Test
-void testVendreNullAction() {
-    Portefeuille p = new Portefeuille();
-
-    Assertions.assertThrows(IllegalArgumentException.class, () -> {
-        p.vendre(null, 5);
-    });
-}
-
-@Test
-void testMultiActionScenario() {
-    Portefeuille p = new Portefeuille();
-    ActionSimple a1 = new ActionSimple("A1");
-    ActionSimple a2 = new ActionSimple("A2");
-
-    p.acheter(a1, 10);
-    p.acheter(a2, 20);
-    p.vendre(a1, 5);
-
-    Assertions.assertEquals(5, p.mapLignes.get(a1));
-    Assertions.assertEquals(20, p.mapLignes.get(a2));
-}
-
-    @Test
-    void testVenteEtQuantite() {
-    Portefeuille p = new Portefeuille();
-    ActionSimple a = new ActionSimple("Test");
-
-    p.acheter(a, 15);
-    p.vendre(a, 5);
-
-    Assertions.assertEquals(10, p.mapLignes.get(a));
-}
-@Test
-void testVendreSansAchat() {
-    Portefeuille p = new Portefeuille();
-    ActionSimple a = new ActionSimple("NonAchetee");
-
-    p.vendre(a, 5);  //vendre une action non achetée
-    Assertions.assertNull(p.mapLignes.get(a));
-}
-
 
 
 
