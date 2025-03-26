@@ -28,6 +28,7 @@ public class Run {
         ActionSimple bnp, axa;
         ActionComposee bqAss;
         Jour j1, j2;
+        Client c1, c2;
 
         // init des objets metiers Jour
         j1 = new Jour(2014, 1);
@@ -68,6 +69,8 @@ public class Run {
         System.out.println("Portefeuille : " + p);
         p.vendre(bnp, 50);
         System.out.println("Portefeuille : " + p);
+
+
  
     }
 

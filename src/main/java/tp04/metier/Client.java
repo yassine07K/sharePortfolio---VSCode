@@ -68,6 +68,9 @@ public class Client {
     public Portefeuille getPortefeuille(int index){return this.portefeuilles.get(index);}
     public ArrayList<Portefeuille> getPortefeuilles(){return this.portefeuilles;}
 
+    public void AcheterPortefueille(Portefeuille portefeuille){
+        portefeuilles.add(portefeuille);
+    }
 
     public int getLocalisationPortefeuilleParNom(String nomP){
         
@@ -119,10 +122,6 @@ public class Client {
     public String toString(){
         return "Client : "+this.nom+" "+this.prenom+" "+this.portefeuilles;
     }
-
-
-
-
 
 
 }

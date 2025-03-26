@@ -16,6 +16,7 @@
 package tp04.metier;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -33,6 +34,30 @@ public class ActionComposee extends Action {
 
     public void enrgComposition(ActionSimple as, float pourcentage) {
         this.mapPanier.put(as, pourcentage);
+    }
+    public void ajouterComposition(Map mapAction) throws Exception{
+        //verifier si la map est vide
+        if(mapAction.isEmpty()){
+            throw new Exception("La map est vide");
+        }
+        //verifier si toutes les actions sont des actions simples
+        for (Object key : mapAction.keySet()) {
+            if(!(key instanceof ActionSimple)){
+                throw new Exception("Toutes les actions ne sont pas des actions simples");
+            }
+        }
+        //vérifier si la somme des proportions des actions composées est égale à 100 %
+        this.mapPanier = mapAction;
+    }
+
+    //obtenir tout les % des actions
+    public float getFloatAction(){
+        Iterator<Float> it = mapPanier.values().iterator();
+        float res = 0;
+        while(it.hasNext()){
+            res += it.next();
+        }
+        return res;
     }
 
     @Override
