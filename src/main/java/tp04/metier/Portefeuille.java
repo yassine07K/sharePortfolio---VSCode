@@ -62,12 +62,16 @@ public class Portefeuille {
     }
 
     public void acheter(Action a, int q) {
-        if (!this.mapLignes.containsKey(a)) {
-            this.mapLignes.put(a, q);
-        } else {
-            this.mapLignes.put(a,this.mapLignes.get(a) + q);
+        if(a == null){
+            throw new IllegalArgumentException("Action ne peut pas être null.");
+        }else if(q > 0){
+            if (!this.mapLignes.containsKey(a)) {
+                this.mapLignes.put(a, q);
+            } else {
+                this.mapLignes.put(a,this.mapLignes.get(a) + q);
+            }
         }
-       
+        
     }
 
     public void vendre(Action a, int q) {

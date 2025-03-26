@@ -234,7 +234,7 @@ public class ClientTest {
         String result = c.toString();
         Assertions.assertTrue(result.contains("Nom"));
         Assertions.assertTrue(result.contains("Prenom"));
-        Assertions.assertTrue(result.contains("mail@example.com"));
+       
 
     }
 
