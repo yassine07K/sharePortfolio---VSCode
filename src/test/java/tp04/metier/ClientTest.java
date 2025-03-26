@@ -151,25 +151,28 @@ public class ClientTest {
     //test de la méthode getNom
     @Test
     void testClientGetters() {
-        Client client = new Client("Dupont", "Jean");
-        Assertions.assertEquals("Dupont", client.getNom());
-        Assertions.assertEquals("Jean", client.getPrenom());
-    }
-    //
+        Client client = new Client("Dupont", "Jean");//creer un client
+        Assertions.assertEquals("Dupont", client.getNom());//verifier le nom
+        Assertions.assertEquals("Jean", client.getPrenom());//verifier le prenom
+
+
+    //Tester si les champs du client ont des valeurs par défaut après la création.
     @Test
     void testConstructorAndGetters() {
         Client c = new Client("Jean", "Dupont");
 
         Assertions.assertEquals("Jean", c.getNom());
         Assertions.assertEquals("Dupont", c.getPrenom());
-        Assertions.assertNull(c.getAdresse());
-        Assertions.assertFalse(c.isConnected());
+        Assertions.assertNull(c.getAdresse());//verifier l'adresse = null
+        Assertions.assertFalse(c.isConnected());//verifier la connexion = false
     }
 
+    //Tester les setters, si les valeurs sont bien ajoutées.
     @Test
     void testSetters() {
         Client c = new Client("Test", "User");
 
+        //ajouter les valeurs
         c.setAdresse("123 Rue");
         c.setVille("Paris");
         c.setCodePostal("75000");
@@ -178,6 +181,7 @@ public class ClientTest {
         c.setDateNaissance("2000-01-01");
         c.setPassword("secret");
 
+        //verifier les valeurs
         Assertions.assertEquals("123 Rue", c.getAdresse());
         Assertions.assertEquals("Paris", c.getVille());
         Assertions.assertEquals("75000", c.getCodePostal());
@@ -186,17 +190,22 @@ public class ClientTest {
         Assertions.assertEquals("2000-01-01", c.getDateNaissance());
         Assertions.assertEquals("secret", c.getPassword());
     }
+
+    //Tester la connexion et la déconnexion du client.
     @Test
     void testConnexionStatus() {
         Client c = new Client("A", "B");
 
+        //verifier la connexion, si le client est connecté
         c.setConnected();
         Assertions.assertTrue(c.isConnected());
 
+        //verifier la deconnexion, si le client est deconnecté
         c.setDisconnected();
         Assertions.assertFalse(c.isConnected());
     }
 
+    //Tester l'achat d'un portefeuille par un client.
     @Test
     void testAcheterPortefeuille() {
         Client c = new Client("A", "B");
@@ -207,8 +216,11 @@ public class ClientTest {
         Assertions.assertTrue(true); // no exception
     }
 
+    //Tester l'information d'un portefeuille par un client.
     @Test
     void testToStringFormat() {
+
+        //ajouter les valeurs
         Client c = new Client("Nom", "Prenom");
         c.setAdresse("Adr");
         c.setVille("Ville");
@@ -218,6 +230,7 @@ public class ClientTest {
         c.setDateNaissance("1990-01-01");
         c.setPassword("mdp");
 
+        //verifier les valeurs
         String result = c.toString();
         Assertions.assertTrue(result.contains("Nom"));
         Assertions.assertTrue(result.contains("Prenom"));
