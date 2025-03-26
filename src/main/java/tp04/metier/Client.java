@@ -17,6 +17,8 @@ package tp04.metier;
 
 import java.util.ArrayList;
 
+import javax.sound.sampled.Port;
+
 public class Client {
 
 
@@ -63,6 +65,9 @@ public class Client {
     public boolean isConnected(){
        return this.connected;
     }
+    public Portefeuille getPortefeuille(int index){return this.portefeuilles.get(index);}
+    public ArrayList<Portefeuille> getPortefeuilles(){return this.portefeuilles;}
+
 
     public int getLocalisationPortefeuilleParNom(String nomP){
         
