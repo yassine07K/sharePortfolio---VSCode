@@ -25,7 +25,7 @@ public class CoursTest {
 
     /**
      * Vérifie que le constructeur de la classe Cours initialise
-     * correctement les attributs jour et valeur.
+     * correctement les attributs jour et valeur
      * On s'assure que les valeurs passées en paramètre sont bien affectées.
      */
     @Test
