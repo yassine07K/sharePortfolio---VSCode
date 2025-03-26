@@ -25,50 +25,74 @@ import java.util.Map;
  */
 public class Portefeuille {
 
-     Map<Action, Integer> mapLignes;
+    private int idPortefeuille;
+    private String nomPortefeuille;
+    Map<Action, Integer> mapLignes;
+    static int indexP = 1;
 
-    public Portefeuille() {
-         this.mapLignes = new HashMap<>();
+    public Portefeuille(String nomP) {
+        this.idPortefeuille = indexP++;
+        this.nomPortefeuille = nomP;
+        this.mapLignes = new HashMap<>();
     }
 
-    public boolean acheter(Action a, int q) {
-        //si l`action est null, on lance une exception	
-        if (a == null) {
+    public Portefeuille() {
+        this.idPortefeuille = indexP++;
+        this.mapLignes = new HashMap<>();
+    }
+
+    public int getIdPortefeuille() {
+        return idPortefeuille;
+    }
+
+    public String getNomPortefeuille() {
+        return nomPortefeuille;
+    }
+
+    public Map<Action, Integer> getMapLignes() {
+        return mapLignes;
+    }
+
+    public void setnomPortefeuille(String nomPortefeuille) {
+        this.nomPortefeuille = nomPortefeuille;
+    }
+
+    public void setMapLignes(Map<Action, Integer> mapLignes) {
+        this.mapLignes = mapLignes;
+    }
+
+    public void acheter(Action a, int q) {
+        if(a == null){
             throw new IllegalArgumentException("Action ne peut pas être null.");
-        }
-         //ajouter un situation que rejette l`achete de qte <= 0
-        if (q <= 0) {
-            return false;
-        }else{ 
+        }else if(q > 0){
             if (!this.mapLignes.containsKey(a)) {
                 this.mapLignes.put(a, q);
-                return true;
             } else {
                 this.mapLignes.put(a,this.mapLignes.get(a) + q);
-                return true;
+            }
+        }
+        
+    }
+
+    public void vendre(Action a, int q) {
+        if (a == null) {
+            throw new IllegalArgumentException("Action ne peut pas être null.");
+        }else{
+            if (this.mapLignes.containsKey(a)) {
+                if (this.mapLignes.get(a) > q) {
+                    this.mapLignes.put(a,this.mapLignes.get(a) - q);
+                } else if (this.mapLignes.get(a)== q) {
+                    this.mapLignes.remove(a);
+                }
             }
         }
        
     }
 
-   public void vendre(Action a, int q) {
-    if (a == null) {
-        throw new IllegalArgumentException("Action ne peut pas être null.");
-    }
-    
-    Integer actuelle = this.mapLignes.get(a);
-    if (actuelle != null) {
-        if (actuelle > q) {
-            this.mapLignes.put(a, actuelle - q);
-        } else {
-            
-            this.mapLignes.remove(a);
-        }
-    }
-    }
+
 
     public String toString() {
-       return this.mapLignes.toString();
+        return this.nomPortefeuille+this.mapLignes.toString();
     }
 
     public float valeur(Jour j) {
