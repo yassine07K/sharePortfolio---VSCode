@@ -18,6 +18,7 @@ package tp04.exec;
 import tp04.metier.Action;
 import tp04.metier.ActionComposee;
 import tp04.metier.ActionSimple;
+import tp04.metier.Client;
 import tp04.metier.Jour;
 import tp04.metier.Portefeuille;
 
@@ -27,6 +28,7 @@ public class Run {
         ActionSimple bnp, axa;
         ActionComposee bqAss;
         Jour j1, j2;
+        Client c1, c2;
 
         // init des objets metiers Jour
         j1 = new Jour(2014, 1);
@@ -49,7 +51,7 @@ public class Run {
         System.out.println("Action *Banque-Assurance* à j2 : " + bqAss.valeur(j2));
 
         Portefeuille p;
-        p = new Portefeuille();
+        p = new Portefeuille("123");
         p.acheter(axa, 10);
         System.out.println("Portefeuille : " + p);
         p.acheter(bnp, 20);
@@ -67,6 +69,8 @@ public class Run {
         System.out.println("Portefeuille : " + p);
         p.vendre(bnp, 50);
         System.out.println("Portefeuille : " + p);
+
+
  
     }
 

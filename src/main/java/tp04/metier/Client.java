@@ -1,7 +1,24 @@
+/*
+ * Copyright 2025 David Navarre &lt;David.Navarre at irit.fr&gt;.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package tp04.metier;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sound.sampled.Port;
 
 public class Client {
 
@@ -51,16 +68,68 @@ public class Client {
     public boolean isConnected(){
        return this.connected;
     }
+    public Portefeuille getPortefeuille(int index){return this.portefeuilles.get(index);}
+    public ArrayList<Portefeuille> getPortefeuilles(){return this.portefeuilles;}
+
+    public void AcheterPortefueille(Portefeuille portefeuille){
+        portefeuilles.add(portefeuille);
+    }
+
 
     public void addPortefeuille(Portefeuille portefeuille){
-
             this.portefeuilles.add(portefeuille);
     }
 
 
-    @Override
-    public String toString() {
-        return "Client{" + "nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", ville=" + ville + ", codePostal=" + codePostal + ", telephone=" + telephone + ", email=" + email + ", dateNaissance=" + dateNaissance + ", Password=" + password + '}';
+    public int getLocalisationPortefeuilleParNom(String nomP){
+        for(Portefeuille exp : this.portefeuilles){
+            if(exp.getNomPortefeuille().equals(nomP)){
+                return this.portefeuilles.indexOf(exp);
+            }
+        }return -1;
+    }
+
+
+    public boolean creerPortefeuille(String nomPortefeuille){
+        Portefeuille p = new Portefeuille(nomPortefeuille);
+        return this.portefeuilles.add(p);
+    }
+
+    public boolean removePortefeuille(String nomPortefeuille){
+        int index = getLocalisationPortefeuilleParNom(nomPortefeuille);
+        if(index!=-1){
+            this.portefeuilles.remove(index);
+            return true;
+        }return false;
+    }
+
+ 
+
+    public boolean acheter(String nomPortefeuille,Action a,int q){
+        int index = getLocalisationPortefeuilleParNom(nomPortefeuille);
+        if(index != -1 && q > 0){
+            this.portefeuilles.get(index).acheter(a,q);
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+        
+
+    public boolean existeAction(String nomP,Action a){
+        int index = getLocalisationPortefeuilleParNom(nomP);
+        if(index == -1){
+            return false;
+        }else{
+            return this.portefeuilles.get(index).getMapLignes().containsKey(a);
+        }
+    }
+    
+
+
+    public String toString(){
+        return "Client : "+this.nom+" "+this.prenom+" "+this.portefeuilles;
     }
 }
 
