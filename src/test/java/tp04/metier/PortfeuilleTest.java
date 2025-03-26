@@ -134,9 +134,13 @@ void testVendrePartiellement() {
     Portefeuille p = new Portefeuille();
     ActionSimple a = new ActionSimple("Action4");
 
+    //acheter un action à 10
     p.acheter(a, 10);
+
+    //vendre 4 actions
     p.vendre(a, 4);
 
+    //Verifier si la quantité de action a est 6
     Assertions.assertEquals(6, p.mapLignes.get(a));
 }
 
